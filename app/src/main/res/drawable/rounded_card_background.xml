@@ -1,0 +1,19 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Gradient from white to black -->
+    <gradient
+        android:startColor="@color/black"
+        android:centerColor="#282323"
+        android:endColor="#D3A14A"
+        android:angle="90"
+        android:gradientRadius="1.0"/>
+
+    <!-- Corner radius for rounded corners -->
+    <corners android:radius="16dp" />
+
+    <!-- Padding inside the shape -->
+    <padding
+        android:left="16dp"
+        android:top="16dp"
+        android:right="16dp"
+        android:bottom="16dp"/>
+</shape>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_open"
+        android:title="Open"
+        android:icon="@drawable/icon_open"/>
+
+    <item
+        android:id="@+id/item_copy"
+        android:title="Copy"
+        android:icon="@drawable/icon_copy"/>
+
+    <item
+        android:id="@+id/item_cut"
+        android:title="Cut"
+        android:icon="@drawable/icon_cut"/>
+
+    <item
+        android:id="@+id/item_rename"
+        android:title="Rename"
+        android:icon="@drawable/icon_rename"/>
+
+    <item
+        android:id="@+id/item_delete"
+        android:title="Delete"
+        android:icon="@drawable/icon_delete"/>
+
+    <item
+        android:id="@+id/item_share"
+        android:title="Share"
+        android:icon="@drawable/icon_share"/>
+
+</menu>

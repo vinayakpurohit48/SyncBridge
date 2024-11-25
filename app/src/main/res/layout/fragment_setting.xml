@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black"
+    tools:context=".Fragments.SettingFragment">
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:fabCradleMargin="10dp"
+        app:fabCradleRoundedCornerRadius="10dp"
+        app:fabCradleVerticalOffset="10dp"
+        app:backgroundTint="@color/yellow"
+        app:actionMenuTextColor="@color/white">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:fontFamily="@font/star"/>
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/start_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                app:cardElevation="10dp"
+                android:layout_marginStart="10dp"
+                app:cardCornerRadius="50dp">
+
+                <ImageView
+                    android:id="@+id/profile"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/profile" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:elevation="10dp"
+                    android:textSize="20sp"
+                    android:maxLines="1"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:elevation="10dp"
+                    android:layout_marginTop="2dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/dark_grey"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/full_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Profile Settings"
+            android:textAlignment="center"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:textColor="@color/white"
+            android:padding="3dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/scanner_overlay"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/inner_button_background"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/copy"
+                    android:padding="5dp"
+                    android:backgroundTint="@color/black"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Use copy paste service"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:gravity="start"/>
+
+                <Switch
+                    android:id="@+id/copyPasteSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:trackTint="@color/white"
+                    android:layout_gravity="end"/> <!-- Align the Switch to the end -->
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/access_file"
+                    android:padding="5dp"
+                    android:backgroundTint="@color/black"
+                    />
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Access of your data"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:gravity="start"/>
+
+                <Switch
+                    android:id="@+id/btnAccessData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:trackTint="@color/white"
+                    android:layout_gravity="end"/> <!-- Align the Switch to the end -->
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/link_device"
+                    android:padding="5dp"
+                    android:backgroundTint="@color/black"
+                    />
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Manage linked device"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:gravity="start"/>
+
+                <Switch
+                    android:id="@+id/btnLinkDevice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:trackTint="@color/white"
+                    android:checked="true"
+                    android:layout_gravity="end"/> <!-- Align the Switch to the end -->
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/inner_button_background"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/send_message_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/message"
+                    android:padding="5dp"
+                    android:backgroundTint="@color/black"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Send us a message"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:gravity="start"/>
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/arrow"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/about_us"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/about_us"
+                    android:padding="5dp"
+                    android:backgroundTint="@color/black"
+                    />
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="About us"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:gravity="start"/>
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/arrow"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/faqs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/faqs"
+                    android:padding="5dp"
+                    android:backgroundTint="@color/black"
+                    />
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="FAQs"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:gravity="start"/>
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/arrow"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/Logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Logout"
+            android:textAlignment="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/inner_button_background"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

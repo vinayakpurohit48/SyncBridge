@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
+    android:background="@color/black">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/yellow"
+        android:visibility="invisible"
+        android:layout_centerInParent="true"/>
+
+    <TextView
+        android:id="@+id/tvNoFiles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="@color/white"
+        android:text="NO FILES FOUND"/>
+
+    <LinearLayout
+        android:id="@+id/title_storage"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/yellow"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Internal Storage"
+            android:layout_marginTop="13dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/star"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_below="@id/title_storage"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item_file_list"/>
+</RelativeLayout>

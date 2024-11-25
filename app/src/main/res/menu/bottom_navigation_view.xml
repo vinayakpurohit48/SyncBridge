@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/nav_home"
+        android:title="Home"
+        android:icon="@drawable/icon_home">
+    </item>
+
+    <item android:id="@+id/nav_mydevice"
+        android:title="My device"
+        android:icon="@drawable/icon_mydevice">
+    </item>
+
+    <item
+        android:id="@+id/nav_add_device"
+        android:title=""
+        android:icon="@drawable/icon_plus" />
+
+    <item android:id="@+id/nav_connected_device"
+        android:title="Connected device"
+        android:icon="@drawable/icon_other_device">
+    </item>
+
+    <item android:id="@+id/nav_setting"
+        android:title="Settings"
+        android:icon="@drawable/icon_setting">
+    </item>
+</menu>

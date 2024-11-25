@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/gradient_background">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.bottomappbar.BottomAppBar
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:fabCradleMargin="10dp"
+                android:layout_alignParentTop="true"
+                app:fabCradleRoundedCornerRadius="10dp"
+                app:fabCradleVerticalOffset="10dp"
+                app:backgroundTint="@color/yellow"
+                app:actionMenuTextColor="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Home"
+                    android:textStyle="bold"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/star"/>
+
+                <ImageView
+                    android:id="@+id/end_card"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:elevation="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_gravity="end"
+                    android:padding="1dp"
+                    android:background="@drawable/button_background"
+                    android:src="@drawable/ic_bell"
+                    app:tint="@android:color/black" />
+
+
+            </com.google.android.material.bottomappbar.BottomAppBar>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/start_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                app:cardElevation="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="50dp"
+                app:cardCornerRadius="50dp">
+
+                <ImageView
+                    android:id="@+id/profile"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/profile" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/start_card"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="35dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Welcome,"
+                    android:elevation="10dp"
+                    android:textSize="15sp"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@android:color/white"
+                    />
+
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your Username"
+                    android:elevation="10dp"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/Txtmystorage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/start_card"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="My storage"
+                    android:elevation="10dp"
+                    android:textSize="25sp"
+                    android:fontFamily="sans-serif"
+                    android:textStyle="bold"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/my_storage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Txtmystorage">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="185dp"
+                    android:layout_margin="10dp"
+                    android:elevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:background="@color/black"
+                        android:weightSum="3">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Internal storage"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:textColor="@android:color/white" />
+
+                            <TextView
+                                android:id="@+id/storageTextView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="130 GB/150 GB used"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:fontFamily="sans-serif"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:textColor="@android:color/white" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Available storage"
+                                android:textSize="15sp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:textColor="@android:color/white" />
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="View Details"
+                                android:id="@+id/view_detail"
+                                android:textSize="18sp"
+                                android:elevation="10dp"
+                                android:layout_marginStart="10dp"
+                                android:textColor="@color/black"
+                                android:layout_marginTop="10dp"
+                                android:backgroundTint="@color/yellow"
+                                app:cornerRadius = "10dp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center">
+
+                                <ProgressBar
+                                    android:id="@+id/storageProgressBar"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:indeterminate="false"
+                                    android:max="100"
+                                    android:progress="80"
+                                    android:progressDrawable="@drawable/circular_progress_drawable"
+                                    android:rotation="270"
+                                    android:layout_centerInParent="true"/>
+
+                                <TextView
+                                    android:id="@+id/progress_text"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="80%"
+                                    android:textSize="24sp"
+                                    android:textColor="#FFFFFF"
+                                    android:layout_centerInParent="true"/>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/otherdevice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/my_storage"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Connected device"
+                    android:elevation="10dp"
+                    android:textSize="25sp"
+                    android:fontFamily="sans-serif"
+                    android:textStyle="bold"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:id="@+id/connected_device"
+                android:layout_below="@+id/otherdevice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <!-- Card 1 -->
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/rounded_card_background"
+                        android:layout_marginEnd="16dp"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/icon_card1"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/file_manager_icon"
+                            app:tint="@color/black"
+                            android:contentDescription="@string/file_manager_icon_desc"/>
+
+                        <TextView
+                            android:id="@+id/title_card1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_gravity="center_horizontal"
+                            android:text="File Manager"
+                            android:textSize="18sp"
+                            android:textColor="#FFFFFF"/>
+
+                        <ProgressBar
+                            android:id="@+id/progress_bar_card1"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="8dp"
+                            android:layout_marginTop="16dp"
+                            android:progress="48"
+                            android:max="128"
+                            android:progressDrawable="@drawable/progress_bar_style"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/used_storage_card1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Used: 48.5 GB"
+                                android:textSize="14sp"
+                                android:textColor="#B0C4DE"/>
+
+                            <TextView
+                                android:id="@+id/total_storage_card1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:text="128 GB"
+                                android:textSize="14sp"
+                                android:textColor="#B0C4DE"/>
+                        </LinearLayout>
+
+                        <Button
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:text="More details"
+                            android:id="@+id/button_details_card1"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:elevation="10dp"
+                            android:layout_marginStart="10dp"
+                            android:textColor="@color/black"
+                            android:layout_marginTop="10dp"
+                            android:backgroundTint="@color/white"
+                            app:cornerRadius="10dp"/>
+                    </LinearLayout>
+
+                    <!-- Card 2 -->
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/rounded_card_background"
+                        android:layout_marginEnd="16dp"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/icon_card2"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/file_manager_icon"
+                            app:tint="@color/black"
+                            android:contentDescription="@string/file_manager_icon_desc"/>
+
+                        <TextView
+                            android:id="@+id/title_card2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_gravity="center_horizontal"
+                            android:text="File Manager"
+                            android:textSize="18sp"
+                            android:textColor="#FFFFFF"/>
+
+                        <ProgressBar
+                            android:id="@+id/progress_bar_card2"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="8dp"
+                            android:layout_marginTop="16dp"
+                            android:progress="48"
+                            android:max="128"
+                            android:progressDrawable="@drawable/progress_bar_style"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/used_storage_card2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Used: 48.5 GB"
+                                android:textSize="14sp"
+                                android:textColor="#B0C4DE"/>
+
+                            <TextView
+                                android:id="@+id/total_storage_card2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:text="128 GB"
+                                android:textSize="14sp"
+                                android:textColor="#B0C4DE"/>
+                        </LinearLayout>
+
+                        <Button
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:text="More details"
+                            android:id="@+id/button_details_card2"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:elevation="10dp"
+                            android:layout_marginStart="10dp"
+                            android:textColor="@color/black"
+                            android:layout_marginTop="10dp"
+                            android:backgroundTint="@color/white"
+                            app:cornerRadius="10dp"/>
+                    </LinearLayout>
+
+                    <!-- Add Card 3 -->
+                    <LinearLayout
+                        android:id="@+id/connect_device"
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:background="@drawable/rounded_card_background"
+                        android:layout_marginEnd="16dp"
+                        android:padding="16dp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:id="@+id/plus_icon_card"
+                                android:layout_width="164dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:padding="40dp"
+                                android:src="@drawable/icc_add" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+
+</RelativeLayout>
