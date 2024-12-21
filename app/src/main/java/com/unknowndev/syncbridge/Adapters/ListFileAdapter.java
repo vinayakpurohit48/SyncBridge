@@ -80,7 +80,7 @@ public class ListFileAdapter extends RecyclerView.Adapter<ListFileAdapter.ViewHo
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvFileName = itemView.findViewById(R.id.tvFileName);
-            tvFileSize = itemView.findViewById(R.id.tvFileSize);
+            tvFileSize = itemView.findViewById(R.id.tvSize);
             tvSubFolder = itemView.findViewById(R.id.tvSubFolder);
             fileIcon = itemView.findViewById(R.id.fileIcon);
         }

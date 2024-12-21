@@ -3,7 +3,7 @@ package com.unknowndev.syncbridge.Model;
 public class FileData {
     private String name;
     private String size;
-    private String subFolderInfo; // e.g., "4 items"
+    private String subFolderInfo;
     private boolean isFolder;
     private String currentPath;
 

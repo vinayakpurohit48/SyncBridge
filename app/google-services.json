@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "104004671236",
+    "project_id": "syncbridge-988bf",
+    "storage_bucket": "syncbridge-988bf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104004671236:android:7535b59a9b79a4d3332251",
+        "android_client_info": {
+          "package_name": "com.unknowndev.syncbridge"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5E64VTQn_pW2BzsYwxX6ryNo-HA8CdHw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

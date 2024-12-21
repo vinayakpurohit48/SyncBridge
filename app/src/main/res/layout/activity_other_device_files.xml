@@ -5,6 +5,20 @@
     android:fitsSystemWindows="true"
     android:background="@color/black">
 
+    <RelativeLayout
+        android:id="@+id/noInternetLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+        <TextView
+            android:id="@+id/tvNoInternet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Please Connect to Internet"/>
+    </RelativeLayout>
+
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
@@ -30,9 +44,10 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tvDeviceName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Internal Storage"
+            android:text="Admin's Mobile"
             android:layout_marginTop="13dp"
             android:textSize="20sp"
             android:textStyle="bold"

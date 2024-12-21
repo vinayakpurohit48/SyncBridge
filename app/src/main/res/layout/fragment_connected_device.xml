@@ -4,12 +4,82 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@color/black"
     tools:context=".Fragments.ConnectedDeviceFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Connected" />
+        android:layout_height="match_parent">
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/yellow"
+            android:visibility="invisible"
+            android:layout_centerInParent="true"/>
+
+        <RelativeLayout
+            android:id="@+id/noDeviceLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+            <TextView
+                android:id="@+id/tvNoFiles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="NO Device FOUND"/>
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/add_icon"
+                android:background="@drawable/round_button"
+                android:contentDescription="imgNoDevice"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/noInternetLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+            <TextView
+                android:id="@+id/tvNoInternet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Please Connect to Internet"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/yellow"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Connected Device "
+                android:layout_marginTop="13dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginStart="15dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/star"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_below="@id/title_bar"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_device_list"/>
+
+    </RelativeLayout>
 </FrameLayout>

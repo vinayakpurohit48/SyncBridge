@@ -39,7 +39,7 @@
         android:padding="16dp">
 
         <com.journeyapps.barcodescanner.CompoundBarcodeView
-            android:id="@+id/barcode_scanner"
+            android:id="@+id/barcodeScanner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
@@ -58,7 +58,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/flash_toggle"
+                android:id="@+id/btnFlash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/flash_off"
@@ -75,7 +75,7 @@
 
             <!-- Gallery button aligned to end -->
             <ImageButton
-                android:id="@+id/gallery_button"
+                android:id="@+id/btnGallery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/gallery_icon"

@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.unknowndev.syncbridge.Adapters.ListFileAdapter;
 import com.unknowndev.syncbridge.Model.FileData;
 import com.unknowndev.syncbridge.R;
@@ -48,7 +50,8 @@ public class MyDeviceFragment extends Fragment implements ListFileAdapter.OnFile
     private Stack<String> pathStack = new Stack<>();
     private TextView tvNoFiles;
     private ExecutorService executorService;
-
+    private BottomSheetDialog bottomSheetDialog;
+    private LinearLayout layoutOpenButton,layoutCopyButton,layoutDeleteButton,layoutShareButton,layoutInfoButton;
     private int currentPage = 0;
     private boolean isLoading = false;
 
@@ -58,6 +61,8 @@ public class MyDeviceFragment extends Fragment implements ListFileAdapter.OnFile
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         tvNoFiles = view.findViewById(R.id.tvNoFiles);
+
+        loadBottomSheetFragment();
 
         listFileAdapter = new ListFileAdapter(getContext(), fileList, this);
         recyclerView.setAdapter(listFileAdapter);
@@ -70,9 +75,49 @@ public class MyDeviceFragment extends Fragment implements ListFileAdapter.OnFile
         } else {
             askPermission();
         }
+
+        layoutOpenButton.setOnClickListener(v -> {
+            Toast.makeText(getContext(), "Open Called", Toast.LENGTH_SHORT).show();
+            bottomSheetDialog.dismiss();
+        });
+
+        layoutCopyButton.setOnClickListener(v -> {
+            Log.d("OnClickOfButton", "onCreateView: copy");
+            bottomSheetDialog.dismiss();
+        });
+
+        layoutDeleteButton.setOnClickListener(v -> {
+            Log.d("OnClickOfButton", "onCreateView: delete");
+            bottomSheetDialog.dismiss();
+        });
+
+        layoutShareButton.setOnClickListener(v -> {
+            Log.d("OnClickOfButton", "onCreateView: share");
+            bottomSheetDialog.dismiss();
+        });
+
+        layoutInfoButton.setOnClickListener(v -> {
+            Log.d("OnClickOfButton", "onCreateView: Info");
+            bottomSheetDialog.dismiss();
+        });
+
         return view;
     }
 
+    private void loadBottomSheetFragment(){
+        bottomSheetDialog = new BottomSheetDialog(getActivity());
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.menu_bottom_sheet, null);
+        bottomSheetDialog.setContentView(view);
+        bottomSheetDialog.setCancelable(true);
+        bottomSheetDialog.setDismissWithAnimation(true);
+        bottomSheetDialog.setCanceledOnTouchOutside(true);
+
+        layoutOpenButton = view.findViewById(R.id.layoutOpenButton);
+        layoutCopyButton = view.findViewById(R.id.layoutCopyButton);
+        layoutDeleteButton = view.findViewById(R.id.layoutDeleteButton);
+        layoutShareButton = view.findViewById(R.id.layoutShareButton);
+        layoutInfoButton = view.findViewById(R.id.layoutInfoButton);
+    }
     private void loadFiles(String path) {
         if (isLoading) return;
         isLoading = true;
@@ -204,13 +249,8 @@ public class MyDeviceFragment extends Fragment implements ListFileAdapter.OnFile
     }
 
     public void goToParentDirectory() {
-        Log.d("Checking Log", "++++++++ BackPressed ++++++++++");
-
-        Log.d("Checking Log", "Before Remove Stack: " + pathStack);
         if (pathStack.size() > 1) {
-
             pathStack.pop();
-            Log.d("Checking Log", "After Remove Stack: " + pathStack);
             String parentPath = pathStack.peek();
             currentPage = 0;
             fileList.clear();
@@ -238,39 +278,8 @@ public class MyDeviceFragment extends Fragment implements ListFileAdapter.OnFile
 
     @Override
     public void onFileLongClick(int position, View view) {
-        PopupMenu popupMenu = new PopupMenu(getContext(), view);
-        MenuInflater inflater = popupMenu.getMenuInflater();
-        inflater.inflate(R.menu.popup_menu_items, popupMenu.getMenu());
-        popupMenu.show();
+        bottomSheetDialog.show();
 
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                int id = item.getItemId();
-
-                if (id == R.id.item_open) {
-                    Toast.makeText(getContext(), "Open clicked", Toast.LENGTH_SHORT).show();
-                    return true;
-                } else if (id == R.id.item_copy) {
-                    Toast.makeText(getContext(), "Copy clicked", Toast.LENGTH_SHORT).show();
-                    return true;
-                } else if (id == R.id.item_cut) {
-                    Toast.makeText(getContext(), "Cut clicked", Toast.LENGTH_SHORT).show();
-                    return true;
-                } else if (id == R.id.item_rename) {
-                    Toast.makeText(getContext(), "Rename clicked", Toast.LENGTH_SHORT).show();
-                    return true;
-                } else if (id == R.id.item_delete) {
-                    Toast.makeText(getContext(), "Delete clicked", Toast.LENGTH_SHORT).show();
-                    return true;
-                } else if (id == R.id.item_share) {
-                    Toast.makeText(getContext(), "Share clicked", Toast.LENGTH_SHORT).show();
-                    return true;
-                } else {
-                    return false; // Return false if none of the conditions matched
-                }
-            }
-        });
     }
 
     private String getMimeType(String filePath) {
@@ -281,6 +290,4 @@ public class MyDeviceFragment extends Fragment implements ListFileAdapter.OnFile
         }
         return mimeType;
     }
-
-
 }
