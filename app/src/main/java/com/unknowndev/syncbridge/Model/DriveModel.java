@@ -1,6 +1,8 @@
 package com.unknowndev.syncbridge.Model;
 
-public class DriveModel {
+import java.io.Serializable;
+
+public class DriveModel implements Serializable {
     private String DriveName;
     private String DrivePath;
     private Long AvailableSpace;

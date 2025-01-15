@@ -1,6 +1,7 @@
 package com.unknowndev.syncbridge.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +31,6 @@ public class ListFileAdapter extends RecyclerView.Adapter<ListFileAdapter.ViewHo
         void onFileLongClick(int position, View view);
     }
 
-
-    // Constructor with listener
     public ListFileAdapter(Context context, ArrayList<FileData> fileList, OnFileClickListener listener) {
         this.context = context;
         this.fileList = fileList;
@@ -50,9 +49,15 @@ public class ListFileAdapter extends RecyclerView.Adapter<ListFileAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         FileData fileData = fileList.get(position);
         holder.tvFileName.setText(fileData.getName());
-        holder.tvFileSize.setText(fileData.getSize());
-        holder.tvSubFolder.setText(fileData.getSubFolderInfo());
-        holder.fileIcon.setImageResource(fileData.isFolder() ? R.drawable.folder_icon : R.drawable.file_icon);
+
+        if (fileData.isFolder()){
+            holder.tvFileDetail.setText(fileData.getSubFolderCount()+" Items");
+            holder.fileIcon.setImageResource(R.drawable.folder_icon);
+
+        } else {
+            holder.tvFileDetail.setText(formatSize(fileData.getSize()));
+            holder.fileIcon.setImageResource(R.drawable.file_icon);
+        }
 
         holder.itemView.setOnClickListener(v -> {
             if (fileData.isFolder()) {
@@ -73,15 +78,31 @@ public class ListFileAdapter extends RecyclerView.Adapter<ListFileAdapter.ViewHo
         return fileList.size();
     }
 
+    private String formatSize(String size) {
+        try {
+            long sizeInBytes = Long.parseLong(size);
+            if (sizeInBytes >= 1 << 30) {
+                return String.format("%.2f GB", sizeInBytes / (double) (1 << 30));
+            } else if (sizeInBytes >= 1 << 20) {
+                return String.format("%.2f MB", sizeInBytes / (double) (1 << 20));
+            } else if (sizeInBytes >= 1 << 10) {
+                return String.format("%.2f KB", sizeInBytes / (double) (1 << 10));
+            } else {
+                return sizeInBytes + " bytes";
+            }
+        } catch (NumberFormatException e) {
+            return size; // Return the original size if parsing fails
+        }
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvFileName, tvFileSize, tvSubFolder;
+        TextView tvFileName, tvFileDetail;
         ImageView fileIcon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvFileName = itemView.findViewById(R.id.tvFileName);
-            tvFileSize = itemView.findViewById(R.id.tvSize);
-            tvSubFolder = itemView.findViewById(R.id.tvSubFolder);
+            tvFileDetail = itemView.findViewById(R.id.tvFileDetail);
             fileIcon = itemView.findViewById(R.id.fileIcon);
         }
     }

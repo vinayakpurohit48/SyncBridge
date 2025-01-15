@@ -1,6 +1,7 @@
 package com.unknowndev.syncbridge.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.unknowndev.syncbridge.ListFilesActivity;
 import com.unknowndev.syncbridge.Model.DriveModel;
 import com.unknowndev.syncbridge.R;
 
@@ -20,10 +22,12 @@ public class ListDriveAdapter extends RecyclerView.Adapter<ListDriveAdapter.View
 
     Context context;
     List<DriveModel> driveList;
+    OnItemClickListener onItemClickListener;
 
-    public ListDriveAdapter(Context context, List<DriveModel> driveList) {
+    public ListDriveAdapter(Context context, List<DriveModel> driveList, OnItemClickListener onItemClickListener) {
         this.context = context;
         this.driveList = driveList;
+        this.onItemClickListener = onItemClickListener;
     }
 
     @NonNull
@@ -47,6 +51,14 @@ public class ListDriveAdapter extends RecyclerView.Adapter<ListDriveAdapter.View
             holder.tvStorageDetails.setText(availableSpaceFormatted + "/" + totalStorageFormatted);
             int progressPercentage = (int) ((double) availableSpace / totalStorage * 100);
             holder.progressBar.setProgress(progressPercentage);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(v, position);
+                }
+            });
+
         } else
             Toast.makeText(context, "Empty", Toast.LENGTH_SHORT).show();
         
@@ -62,7 +74,7 @@ public class ListDriveAdapter extends RecyclerView.Adapter<ListDriveAdapter.View
         ProgressBar progressBar;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvDriveName = itemView.findViewById(R.id.tvDeviceName);
+            tvDriveName = itemView.findViewById(R.id.tvDriveName);
             tvStorageDetails = itemView.findViewById(R.id.tvStorageDetails);
             progressBar = itemView.findViewById(R.id.progressBar);
         }
@@ -82,5 +94,8 @@ public class ListDriveAdapter extends RecyclerView.Adapter<ListDriveAdapter.View
         } else {
             return sizeInBytes + " Bytes";
         }
+    }
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
     }
 }

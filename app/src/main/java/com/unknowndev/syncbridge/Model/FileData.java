@@ -1,50 +1,50 @@
 package com.unknowndev.syncbridge.Model;
 
 public class FileData {
-    private String name;
-    private String size;
-    private String subFolderInfo;
+    private String Name;
+    private String Size;
+    private String SubFolderCount;
     private boolean isFolder;
-    private String currentPath;
+    private String Path;
 
     public FileData(String name, String size, String subFolderInfo, boolean isFolder, String currentPath) {
-        this.name = name;
-        this.size = size;
-        this.subFolderInfo = subFolderInfo;
+        this.Name = name;
+        this.Size = size;
+        this.SubFolderCount = subFolderInfo;
         this.isFolder = isFolder;
-        this.currentPath = currentPath;
+        this.Path = currentPath;
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
     public String getSize() {
-        return size;
+        return Size;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.Name = name;
     }
 
-    public String getCurrentPath() {
-        return currentPath;
+    public String getPath() {
+        return Path;
     }
 
-    public void setCurrentPath(String currentPath) {
-        this.currentPath = currentPath;
+    public void setPath(String path) {
+        this.Path = path;
     }
 
     public void setSize(String size) {
-        this.size = size;
+        this.Size = size;
     }
 
-    public void setSubFolderInfo(String subFolderInfo) {
-        this.subFolderInfo = subFolderInfo;
+    public void setSubFolderCount(String subFolderCount) {
+        this.SubFolderCount = subFolderCount;
     }
 
-    public String getSubFolderInfo() {
-        return subFolderInfo;
+    public String getSubFolderCount() {
+        return SubFolderCount;
     }
 
     public boolean isFolder() {

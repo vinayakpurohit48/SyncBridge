@@ -1,10 +1,7 @@
 package com.unknowndev.syncbridge;
 
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -15,6 +12,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +22,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.unknowndev.syncbridge.Adapters.ListDriveAdapter;
 import com.unknowndev.syncbridge.Adapters.ListFileAdapter;
 import com.unknowndev.syncbridge.Model.DriveModel;
 import com.unknowndev.syncbridge.Model.FileData;
@@ -33,64 +30,58 @@ import com.unknowndev.syncbridge.Model.SessionModel;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class OtherDeviceDriveActivity extends AppCompatActivity implements ListDriveAdapter.OnItemClickListener {
+public class ListFilesActivity extends AppCompatActivity implements ListFileAdapter.OnFileClickListener, ListFileAdapter.OnFileLongClickListener {
 
     private RecyclerView recyclerView;
     private ArrayList<FileData> fileList = new ArrayList<>();
-    private Stack<String> pathStack = new Stack<>();
     private TextView tvNoFiles, tvDeviceName;
     private ProgressBar progressBar;
     private SessionModel sessionModel;
     private RelativeLayout noInternetLayout;
-    private ListDriveAdapter listDriveAdapter;
-    private String accessUrl;
+    private ListFileAdapter listFileAdapter;
     private String TAG = "Kya hua";
-    private List<DriveModel> driveModelList = new ArrayList<>();
+    DriveModel driveModel;
     private OkHttpClient client = new OkHttpClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_other_device_files);
+        setContentView(R.layout.activity_list_files);
 
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplication()));
         tvNoFiles = findViewById(R.id.tvNoFiles);
         progressBar = findViewById(R.id.progressBar);
         tvDeviceName = findViewById(R.id.tvDeviceName);
         noInternetLayout = findViewById(R.id.noInternetLayout);
 
-        listDriveAdapter = new ListDriveAdapter(this, driveModelList, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(listDriveAdapter);
+
 
         if (getIntent() != null){
-
             sessionModel = (SessionModel) getIntent().getSerializableExtra("SessionModel");
             tvDeviceName.setText(sessionModel.getUserID() + "'s "+sessionModel.getDeviceType());
-
+            driveModel = (DriveModel) getIntent().getSerializableExtra("DriveModel");
 
             if (isInternetConnected()){
                 setInProgress(true, false);
-                //MyFirebase.getMySessionRef().child(sessionModel.getSessionID()).child("accessUrl")
                 FirebaseDatabase.getInstance().getReference("ServerUrl").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         sessionModel.setAccessUrl(snapshot.getValue(String.class));
-                        Toast.makeText(OtherDeviceDriveActivity.this, "Changed at: " + sessionModel.getAccessUrl(), Toast.LENGTH_SHORT).show();
                         try {
-                            loadDrives();
+                            loadFiles(driveModel.getDrivePath());
                         } catch (Exception e){
-                            Toast.makeText(OtherDeviceDriveActivity.this, "Error occurs" + e, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ListFilesActivity.this, "Error occurs" + e, Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "onDataChange: Error Loading Drive" + e);
                         }
                     }
@@ -103,63 +94,73 @@ public class OtherDeviceDriveActivity extends AppCompatActivity implements ListD
             } else
                 setInternetNotAvailable();
         } else {
-            Toast.makeText(this, "Something getting wrong", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Something is wrong", Toast.LENGTH_SHORT).show();
             super.onBackPressed();
         }
     }
-    void loadDrives(){
+
+    void loadFiles(String path) {
+        Log.d(TAG, "Request: " + path);
+        MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
+        String json = "{\"Path\": \"" + path + "/\"}";
+        RequestBody requestBody = RequestBody.create(json, mediaType);
+        Log.d(TAG, "Request: " + requestBody);
+
         Request request = new Request.Builder()
-                .url(sessionModel.getAccessUrl() + "/listdrive")
+                .url(sessionModel.getAccessUrl() + "/listfile")
+                .post(requestBody)
                 .build();
+
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                new Handler(Looper.getMainLooper()).post(() -> {
+                runOnUiThread(() -> {
                     setInProgress(false, false);
-                    Toast.makeText(OtherDeviceDriveActivity.this, "Error Occur" + e, Toast.LENGTH_SHORT).show();
                 });
             }
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                if (response.isSuccessful() && response.body() != null) {
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        @Override
-                        public void run() {
-                            String json = null;
-                            setInProgress(false, true);
-                            try {
-                                json = response.body().string();
-                                Log.d(TAG, "Response JSON: " + json);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            String responseBody = response.body().string();
+                            Log.d(TAG, "Response: " + responseBody);
+
+                            if (response.isSuccessful() && !responseBody.isEmpty()){
+                                setInProgress(false, true);
                                 Gson gson = new Gson();
-                                List<DriveModel> newDriveList = gson.fromJson(json, new TypeToken<List<DriveModel>>(){}.getType());
-
-                                driveModelList.clear();
-                                driveModelList.addAll(newDriveList);
-                                listDriveAdapter.notifyDataSetChanged();
-                                Log.d(TAG, "run: Notified with length" + driveModelList.size());
-
-                            } catch (IOException e) {
-                                Log.d(TAG, "Error parsing response: " + e);
-                                throw new RuntimeException(e);
+                                fileList.clear();
+                                fileList = gson.fromJson(responseBody, new TypeToken<ArrayList<FileData>>(){}.getType());
+                                Toast.makeText(ListFilesActivity.this, "Length: " + fileList.size(), Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, "run: FileList: " + fileList);
+                                listFileAdapter = new ListFileAdapter(ListFilesActivity.this, fileList, ListFilesActivity.this);
+                                recyclerView.setAdapter(listFileAdapter);
+                                setInProgress(false, true);
+                            } else {
+                                setInProgress(false, false);
+                                Toast.makeText(ListFilesActivity.this, "No files or Empty", Toast.LENGTH_SHORT).show();
                             }
+                        } catch (IOException e) {
+                            Toast.makeText(ListFilesActivity.this, "Error occurs", Toast.LENGTH_SHORT).show();
+                            setInProgress(false, false);
+                            throw new RuntimeException(e);
                         }
-                    });
-                } else {
-                    Log.d(TAG, "Response failed");
-                }
+                    }
+                });
             }
         });
-
     }
-    void setInProgress(boolean inProgress, boolean isContainsFile){
-        if (inProgress){
+
+    void setInProgress(boolean inProgress, boolean isContainsFile) {
+        if (inProgress) {
             recyclerView.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
             tvNoFiles.setVisibility(View.GONE);
             noInternetLayout.setVisibility(View.GONE);
         } else {
-            if (isContainsFile){
+            if (isContainsFile) {
                 recyclerView.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.GONE);
                 tvNoFiles.setVisibility(View.GONE);
@@ -178,7 +179,7 @@ public class OtherDeviceDriveActivity extends AppCompatActivity implements ListD
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnectedOrConnecting();
     }
 
-    void setInternetNotAvailable(){
+    void setInternetNotAvailable() {
         recyclerView.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
         tvNoFiles.setVisibility(View.GONE);
@@ -186,11 +187,12 @@ public class OtherDeviceDriveActivity extends AppCompatActivity implements ListD
     }
 
     @Override
-    public void onItemClick(View view, int position) {
+    public void onFileClick(int position) {
+        // Handle file click if needed
+    }
 
-        Intent intent = new Intent(this, ListFilesActivity.class);
-        intent.putExtra("SessionModel", sessionModel);
-        intent.putExtra("DriveModel", driveModelList.get(position));
-        startActivity(intent);
+    @Override
+    public void onFileLongClick(int position, View view) {
+        // Handle long click if needed
     }
 }
